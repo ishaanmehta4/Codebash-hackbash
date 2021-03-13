@@ -5,7 +5,7 @@ const app = express();
 const firebase = require("firebase/app");
 const firebaseConfig = require("./firebaseConfig");
 // if (!firebase.apps.length) {
-// firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 // firebase.initializeApp({});
 // }else {
 // }
@@ -35,7 +35,7 @@ const {
 } = require("./functions/messenger");
 const { sendNotifications } = require("./functions/dailyNotif");
 
-const { reset } = require("nodemon");
+// const { reset } = require("nodemon");
 const { config } = require("dotenv");
 
 app.get("/", (req, res) => {
