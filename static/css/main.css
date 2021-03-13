@@ -24,13 +24,13 @@
 }
 
 :root {
-  --primary-color: #693c72;
-  --secondary-color: #f1c111;
+  --primary-color: #f17b83;
+  --secondary-color: #d6d0d0;
   --white-color: #ffffff;
-  --dark-color: #171819;
+  --dark-color: #252525;
   --project-bg: #f0f8ff;
-  --menu-bg: #693c72;
---button:#ec8714;
+  --menu-bg: #f17b83;
+  --button: #eceae8;
   --title-color: #15141a;
   --gray-color: #909090;
   --link-color: #404040;
@@ -57,6 +57,10 @@ body {
   
   background: var(--white-color);
   font-family: var(--base-font-family);
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /*---------------------------------------
@@ -560,11 +564,9 @@ a:focus {
 /*---------------------------------------
      FOOTER              
   -----------------------------------------*/
-.team{
+.team {
   font-size: 16px;
-  color:#f1c111;
- 
-  
+  color: #f1c111;
 }
 .site-footer {
   background: var(--dark-color);
