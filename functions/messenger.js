@@ -57,39 +57,27 @@ const webhookGetHandler = async (req, res) => {
 };
 
 async function handleMessage(sender_psid, received_message) {
-  let response;
-  // console.log(received_message)
+    let response;
+    // console.log(received_message)
 
-  // Checks if the message contains text
-  if (received_message.text) {
-    console.log(
-      `Recieved text: "${received_message.text}" from ${sender_psid}`
-    );
+    if (received_message.text) {
+        // console.log(`Recieved text: "${received_message.text}" from ${sender_psid}`);
 
-    let replyText = "";
-    if (received_message.text.toLowerCase())
-      replyText = await frameMessengerReply(
-        sender_psid,
-        received_message.text.toLowerCase(),
-        false
-      );
-    response = {
-      text: replyText,
-    };
-  }
-  if (received_message.attachments) {
-    // Get the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
-    // console.log(attachment_url + ' received from ' + sender_psid);
-    let replyText = await frameMessengerReply(
-      sender_psid,
-      attachment_url,
-      true
-    );
-    response = {
-      text: replyText,
-    };
-  }
+        let replyText = '';
+        if (received_message.text.toLowerCase()) replyText = await frameMessengerReply(sender_psid, received_message.text.toLowerCase(), false);
+        response = {
+            text: replyText
+        };
+    }
+    if (received_message.attachments) {
+        // Get the URL of the message attachment
+        let attachment_url = received_message.attachments[0].payload.url;
+        // console.log(attachment_url + ' received from ' + sender_psid);
+        let replyText = await frameMessengerReply(sender_psid, attachment_url, true);
+        response = {
+            text: replyText
+        };
+    }
 
   // Send the response message
   callSendAPI(sender_psid, response);
@@ -111,37 +99,50 @@ function handlePostback(sender_psid, received_postback) {
 }
 
 function callSendAPI(sender_psid, response) {
-  // Construct the message body
-  let request_body = {
-    recipient: {
-      id: sender_psid,
-    },
-    message: response,
-  };
+    // Construct the message body
+    let request_body = {
+        recipient: {
+            id: sender_psid
+        },
+        message: response
+    };
 
-  // Send the HTTP request to the Messenger Platform
-  request(
-    {
-      uri: "https://graph.facebook.com/v2.6/me/messages",
-      qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-      method: "POST",
-      json: request_body,
-    },
-    (err, res, body) => {
-      if (!err) {
-        console.log("Message sent!");
-      } else {
-        console.error("Unable to send message: " + err);
-      }
-    }
-  );
+    // Send the HTTP request to the Messenger Platform
+    request(
+        {
+            uri: "https://graph.facebook.com/v2.6/me/messages",
+            qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+            method: "POST",
+            json: request_body
+        },
+        (err, res, body) => {
+            if (!err) {
+                // console.log("Message sent!");
+            } else {
+                console.error("Unable to send message: " + err);
+            }
+        }
+    );
 }
 
 async function frameMessengerReply(user_psid, msgText, isAttachment) {
   // Handles messages recieved on Messenger
+
   try {
+    if(isAttachment) {
+    let userDoc = await db.collection("users").doc(user_psid).get();
+    if (!userDoc.exists)
+        return ":/ Looks like I don't know you, let me know if you want to subscribe to Codebash notifications by sending JOIN.";
+    else return '👍🏻'
+    }
+
     if (msgText.slice(0, 4) == "join") {
       let responseText = await joinResponse(user_psid);
+      return responseText;
+    }
+
+    if (msgText.slice(0, 11) == "unsubscribe") {
+      let responseText = await unsubscribeResponse(user_psid);
       return responseText;
     }
 
@@ -220,17 +221,26 @@ async function subscriptionResponse(userDoc, msgText) {
 }
 
 async function ratingQueryResponse(msgText) {
-  try {
-    let { username, platform, rating, error } = await parseRatingQuery(msgText);
-    if (error == 0) {
-      console.log({ username, platform, rating });
-      return `@${username}'s rating on ${platform}: \n${rating} 🔥`;
-    } else console.log(error);
-    return error;
-  } catch (err) {
-    console.log(err);
-    return "Oops! some error occurred.";
-  }
+    try {
+        let { username, platform, rating, error } = await parseRatingQuery(msgText)
+        if(error == 0) {
+            // console.log({ username, platform, rating })
+            return `@${username}'s rating on ${platform}: \n${rating} 🔥`
+        }
+        // else console.log(error)
+        return error
+    } catch (err) { console.log(err); return 'Oops! some error occurred.' }
+}
+
+async function unsubscribeResponse(user_psid) {
+    try {
+        let userDoc = await db.collection("users").doc(user_psid).get();
+        if(!userDoc.exists) return 'You need to signup before you unsubscribe, dummy! 🤣'
+        else {
+            await userDoc.ref.delete();
+            return 'We are sad to see you go :( . You can join back at any time by sending "Join" here. Thanks for using Codebash!'
+        }
+    } catch (err) { console.log(err); return 'Oops! some error occurred.' }
 }
 
 module.exports = { webhookGetHandler, webhookPostHandler, db, callSendAPI };

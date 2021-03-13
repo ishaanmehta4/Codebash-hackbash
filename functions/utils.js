@@ -21,7 +21,7 @@ async function parseRatingQuery(msgText) {
         result.username = wordsArray[0]
     }
     if(result.username && result.platform) return {...result, rating: 0, error: 0}
-    else return {error: 'Invalid username or platform. :('}
+    else return {error: 'If you were trying to fetch someone\'s rating, then it looks like the username or platform is not valid. :/'}
 }
 
 function removeApostrophe(word) {

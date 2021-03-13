@@ -44,6 +44,13 @@ async function hackerearthHandler(req, res) {
       challenge_type: "contest",
       url: "https://bruteforce3.hackerearth.com/",
     },
+    {
+      EndTime: "Sun, 14 Mar 2021 18:00",
+      Name: "DotSlash",
+      Platform: "HACKEREARTH",
+      challenge_type: "contest",
+      url: "https://dotslash.hackerearth.com/",
+    },
   ];
   await fetchData("HACKEREARTH");
   return codeArray;

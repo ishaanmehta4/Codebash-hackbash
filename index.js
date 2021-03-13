@@ -56,6 +56,7 @@ app.get("/events/codechef", async (req, res) => {
 app.post("/mg-api/webhook", webhookPostHandler);
 app.get("/mg-api/webhook", webhookGetHandler);
 app.get("/dailynotification", sendNotifications);
+app.post("/dailynotification", sendNotifications);
 
 app.post("/rating/hackerearth", async (req, res) => {
   res.send(await hackerearthRating(req.body.platform, req.body.username));
