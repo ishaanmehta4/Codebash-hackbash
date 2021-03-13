@@ -20,8 +20,8 @@ const fetchData = async (platform, username) => {
     });
 };
 const fetchDataHackearth = async (platform, username) => {
-  const url = `http://rating-wiz.herokuapp.com/${platform}/${username}`;
-  console.log(url);
+  const url = `http://rating-wiz.herokuapp.com/hackerearth/${username}`;
+  // console.log(url);
   await fetch(url)
     .then((response) => response.json())
     .then((dataUser) => {
