@@ -34,6 +34,17 @@ app.get("/events/codechef", async (req, res) => {
   res.send(await codechefHandler());
 });
 
+const { webhookPostHandler, webhookGetHandler } = require('./functions/messenger');
+
+app.get("/", (req, res) => {
+    console.log('GET /')
+    res.json({ 'status': 'active' })
+});  
+
+app.post("/mg-api/webhook", webhookPostHandler);
+app.get("/mg-api/webhook", webhookGetHandler);
+
+
 // --- LISTEN TO REQUESTS ---
 const listener = app.listen(process.env.PORT || 5000, () => {
   console.log(">> Listening on PORT " + listener.address().port);
