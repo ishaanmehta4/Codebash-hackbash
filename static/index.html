@@ -234,32 +234,34 @@
               Take a look through the
               <strong>Upcoming Events</strong>
             </h2>
-            <div class="card-deck">
-               <div class="card">
-                 <!-- <img src="..." class="card-img-top" alt="..."> -->
-                 <div class="card-body">
-                   <h5 class="card-title">Codeforces events</h5>
-                   <p class="card-text" id="Codeforces_events"></p>
-                   <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                 </div>
-               </div>
-               <div class="card">
-                 <!-- <img src="..." class="card-img-top" alt="..."> -->
-                 <div class="card-body">
-                   <h5 class="card-title">Codechef events</h5>
-                   <p class="card-text" id="Codechef_events"></p>
-                   <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                 </div>
-               </div>
-               <div class="card">
-                 <!-- <img src="..." class="card-img-top" alt="..."> -->
-                 <div class="card-body">
-                   <h5 class="card-title">Hackerearth events</h5>
-                   <p class="card-text" id="Hackerearth_events"></p>
-                   <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-                 </div>
-               </div>
-             </div>
+            <div class="container-fluid">
+              <div class="card-deck">
+                <div class="card">
+                  <!-- <img src="..." class="card-img-top" alt="..."> -->
+                  <div class="card-body">
+                    <h5 class="card-title">Codeforces events</h5>
+                    <p class="card-text" id="codeforces_events"></p>
+                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                  </div>
+                </div>
+                <div class="card">
+                  <!-- <img src="..." class="card-img-top" alt="..."> -->
+                  <div class="card-body">
+                    <h5 class="card-title">Codechef events</h5>
+                    <p class="card-text" id="codechef_events"></p>
+                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                  </div>
+                </div>
+                <div class="card">
+                  <!-- <img src="..." class="card-img-top" alt="..."> -->
+                  <div class="card-body">
+                    <h5 class="card-title">Hackerearth events</h5>
+                    <p class="card-text" id="hackerearth_events"></p>
+                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -337,20 +339,78 @@
     <script src="js/custom.js"></script>
 
     <script>
-      async function getEvents(platform) {
-        let res = await fetch('/events/' + platform)
-        res = await res.json()
-        console.log(platform, res)
-        return res
+      async function getEvents1(platform) {
+        document.getElementById(platform + "_events").innerHTML = "";
+        let res = await fetch("/events/" + platform);
+        res = await res.json();
+        if (res[0].Error) {
+          res[0].Name = res[0].Error;
+          res[0].url = "";
+        }
+        console.log(platform, res);
+        return res;
+      }
+      async function getEvents2(platform) {
+        document.getElementById(platform + "_events").innerHTML = "";
+        let res = await fetch("/events/" + platform);
+        res = await res.json();
+        if (res[0].Error) {
+          res[0].Name = res[0].Error;
+          res[0].url = "";
+        }
+        console.log(platform, res);
+        return res;
+      }
+      async function getEvents3(platform) {
+        document.getElementById(platform + "_events").innerHTML = "";
+        let res = await fetch("/events/" + platform);
+        res = await res.json();
+        if (res[0].Error) {
+          res[0].Name = res[0].Error;
+          res[0].url = "";
+        }
+        console.log(platform, res);
+        return res;
       }
 
-      // getEvents('codeforces')
-      // getEvents('codechef')
-      getEvents('hackerearth').then(res => {
-        res.forEach(event => {
-          document.getElementById('Hackerearth_events').innerHTML += `${event.Name} <br /> ${event.url} <br><br>`
+      getEvents1("codeforces")
+        .then((res1) => {
+          console.log(res1);
+          res1.forEach((event) => {
+            document.getElementById(
+              "codeforces_events"
+            ).innerHTML += `${event.Name} <br /> ${event.url} <br><br>`;
+          });
         })
-      }).catch(err => {console.log(err)})
+        .catch((err) => {
+          console.log("Hello", err);
+        });
+
+      getEvents3("hackerearth")
+        .then((res3) => {
+          console.log(res3);
+          res3.forEach((event) => {
+            document.getElementById(
+              "hackerearth_events"
+            ).innerHTML += `${event.Name} <br /> ${event.url} <br><br>`;
+          });
+        })
+        .catch((err) => {
+          console.log("Hello", err);
+        });
+
+      getEvents2("codechef")
+        .then((res2) => {
+          console.log(res2);
+          res2.forEach((event) => {
+            document.getElementById(
+              "codechef_events"
+            ).innerHTML += `${event.Name} <br /> ${event.url} <br><br>`;
+          });
+        })
+        .catch((err) => {
+          console.log("Hello", err);
+        });
     </script>
   </body>
 </html>

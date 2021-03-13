@@ -1,5 +1,3 @@
-
-
 @font-face {
   font-family: "Plain-Regular";
   src: url("../fonts/Plain-Regular.woff2") format("woff2"),
@@ -31,7 +29,7 @@
   --dark-color: #171819;
   --project-bg: #f0f8ff;
   --menu-bg: #693c72;
---button:#ec8714;
+  --button: #ec8714;
   --title-color: #15141a;
   --gray-color: #909090;
   --link-color: #404040;
@@ -54,8 +52,6 @@
 }
 
 body {
- 
-  
   background: var(--white-color);
   font-family: var(--base-font-family);
 }
@@ -561,11 +557,9 @@ a:focus {
 /*---------------------------------------
      FOOTER              
   -----------------------------------------*/
-.team{
+.team {
   font-size: 16px;
-  color:#f1c111;
- 
-  
+  color: #f1c111;
 }
 .site-footer {
   background: var(--dark-color);
@@ -721,14 +715,15 @@ a:focus {
   background-color: #17141d;
   border-radius: 10px;
   box-shadow: -1rem 0 3rem #000;
-  margin-left: 50px;
+  /* margin-right: 50px; */
+  transform: scale(0.9);
   transition: 0.4s ease-out;
   position: relative;
   left: 0px;
 }
 
 .card:not(:first-child) {
-    margin-left: -50px;
+  margin-left: -50px;
 }
 
 .card:hover {
@@ -771,8 +766,13 @@ a:focus {
   z-index: 3;
   width: 0px;
   height: 100%;
-  background: rgb(0,154,217);
-  background: linear-gradient(90deg, rgba(0,154,217,1) 0%, rgba(217,147,0,1) 65%, rgba(255,186,0,1) 100%);
+  background: rgb(0, 154, 217);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 154, 217, 1) 0%,
+    rgba(217, 147, 0, 1) 65%,
+    rgba(255, 186, 0, 1) 100%
+  );
   transition: 0.6s ease-out;
 }
 
