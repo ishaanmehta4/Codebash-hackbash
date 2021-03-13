@@ -23,7 +23,10 @@ const {
   hackerearthHandler,
 } = require("./functions/events");
 
-const { webhookPostHandler, webhookGetHandler } = require('./functions/messenger');
+const {
+  webhookPostHandler,
+  webhookGetHandler,
+} = require("./functions/messenger");
 const { sendNotifications } = require("./functions/dailyNotif");
 
 const { reset } = require("nodemon");
@@ -43,10 +46,9 @@ app.get("/events/codechef", async (req, res) => {
   res.send(await codechefHandler());
 });
 
-
 app.post("/mg-api/webhook", webhookPostHandler);
 app.get("/mg-api/webhook", webhookGetHandler);
-app.get("/dailynotification", sendNotifications)
+app.get("/dailynotification", sendNotifications);
 
 // --- LISTEN TO REQUESTS ---
 const listener = app.listen(process.env.PORT || 5000, () => {

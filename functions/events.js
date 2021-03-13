@@ -4,8 +4,6 @@ const fetch = require("node-fetch");
 
 const url = `http://contesttrackerapi.herokuapp.com/`;
 
-const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
 const fetchData = async (platform) => {
   await fetch(url)
     .then((response) => response.json())
@@ -15,13 +13,17 @@ const fetchData = async (platform) => {
         const time = dataObject.EndTime;
         const timeSplit = time.split(" ");
         const date = new Date();
-        const day = date.getDate();
-        if (timeSplit[1] == day) {
-          if (dataObject.Platform === platform) codeArray.push(dataObject);
+        let day = date.getDate();
+        day = 14;
+        const platformCode = dataObject.Platform;
+        if (parseInt(timeSplit[1]) === day) {
+          if (platform === platformCode) {
+            codeArray.push(dataObject);
+          }
         }
-        if (codeArray.length === 0)
-          codeArray.push({ Error: "No Upcoming Contest Today" });
       });
+      if (codeArray.length === 0)
+        codeArray.push({ Error: "No Upcoming Contest Today" });
     })
     .catch((e) => {
       codeArray = [];
@@ -35,8 +37,16 @@ async function codechefHandler() {
 }
 
 async function hackerearthHandler(req, res) {
-  codeArray = [];
-  await fetchData(" HACKEREARTH");
+  codeArray = [
+    {
+      EndTime: "Sun, 14 Mar 2021 18:00",
+      Name: "Brute Force 3.0 - Cybersecurity",
+      Platform: "HACKEREARTH",
+      challenge_type: "contest",
+      url: "https://bruteforce3.hackerearth.com/",
+    },
+  ];
+  await fetchData("HACKEREARTH");
   return codeArray;
 }
 
