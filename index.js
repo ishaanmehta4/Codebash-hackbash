@@ -3,9 +3,14 @@ const express = require("express");
 const app = express();
 
 const firebase = require("firebase/app");
-// const firebaseConfig = require("./firebaseConfig");
-// firebase.initializeApp(firebaseConfig);
-// require("firebase/firestore");
+const firebaseConfig = require("./firebaseConfig");
+// if (!firebase.apps.length) {
+  // firebase.initializeApp(firebaseConfig);
+  // firebase.initializeApp({});
+// }else {
+// }
+// firebase.app(); // if already initialized, use that one
+require("firebase/firestore");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
