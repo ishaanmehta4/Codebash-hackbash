@@ -5,8 +5,8 @@ const app = express();
 const firebase = require("firebase/app");
 const firebaseConfig = require("./firebaseConfig");
 // if (!firebase.apps.length) {
-  // firebase.initializeApp(firebaseConfig);
-  // firebase.initializeApp({});
+// firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp({});
 // }else {
 // }
 // firebase.app(); // if already initialized, use that one
@@ -22,6 +22,10 @@ const {
   codeforcesHandler,
   hackerearthHandler,
 } = require("./functions/events");
+
+const { webhookPostHandler, webhookGetHandler } = require('./functions/messenger');
+const { sendNotifications } = require("./functions/dailyNotif");
+
 const { reset } = require("nodemon");
 
 app.get("/", (req, res) => {
@@ -39,16 +43,10 @@ app.get("/events/codechef", async (req, res) => {
   res.send(await codechefHandler());
 });
 
-const { webhookPostHandler, webhookGetHandler } = require('./functions/messenger');
-
-app.get("/", (req, res) => {
-    console.log('GET /')
-    res.json({ 'status': 'active' })
-});  
 
 app.post("/mg-api/webhook", webhookPostHandler);
 app.get("/mg-api/webhook", webhookGetHandler);
-
+app.get("/dailynotification", sendNotifications)
 
 // --- LISTEN TO REQUESTS ---
 const listener = app.listen(process.env.PORT || 5000, () => {

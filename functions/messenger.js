@@ -209,4 +209,4 @@ async function ratingQueryResponse(msgText) {
     } catch (err) { console.log(err); return 'Oops! some error occurred.' }
 }
 
-module.exports = { webhookGetHandler, webhookPostHandler }
+module.exports = { webhookGetHandler, webhookPostHandler, db, callSendAPI }
