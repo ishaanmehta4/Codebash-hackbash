@@ -69,7 +69,7 @@ app.get("/rating/codechef/:username", async (req, res) => {
 });
 
 // --- LISTEN TO REQUESTS ---
-const listener = app.listen(process.env.PORT || 5000, () => {
+const listener = app.listen(process.env.PORT || 5500, () => {
   console.log(">> Listening on PORT " + listener.address().port);
 });
 
