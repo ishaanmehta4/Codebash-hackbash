@@ -14,7 +14,6 @@ const fetchData = async (platform) => {
         const timeSplit = time.split(" ");
         const date = new Date();
         let day = date.getDate();
-        day = 14;
         const platformCode = dataObject.Platform;
         if (parseInt(timeSplit[1]) === day) {
           if (platform === platformCode) {

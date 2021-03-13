@@ -24,12 +24,19 @@ const {
 } = require("./functions/events");
 
 const {
+  hackerearthRating,
+  codeforcesRating,
+  codechefRating,
+} = require("./functions/rating");
+
+const {
   webhookPostHandler,
   webhookGetHandler,
 } = require("./functions/messenger");
 const { sendNotifications } = require("./functions/dailyNotif");
 
 const { reset } = require("nodemon");
+const { config } = require("dotenv");
 
 app.get("/", (req, res) => {
   console.log("GET /");
@@ -49,6 +56,16 @@ app.get("/events/codechef", async (req, res) => {
 app.post("/mg-api/webhook", webhookPostHandler);
 app.get("/mg-api/webhook", webhookGetHandler);
 app.get("/dailynotification", sendNotifications);
+
+app.post("/rating/hackerearth", async (req, res) => {
+  res.send(await hackerearthRating(req.body.platform, req.body.username));
+});
+app.post("/rating/codeforces", async (req, res) => {
+  res.send(await codeforcesRating(req.body.platform, req.body.username));
+});
+app.post("/rating/codechef", async (req, res) => {
+  res.send(await codechefRating(req.body.platform, req.body.username));
+});
 
 // --- LISTEN TO REQUESTS ---
 const listener = app.listen(process.env.PORT || 5000, () => {
