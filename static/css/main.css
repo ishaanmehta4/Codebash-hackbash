@@ -29,7 +29,7 @@
   --dark-color: #171819;
   --project-bg: #f0f8ff;
   --menu-bg: #693c72;
-
+--button:#ec8714;
   --title-color: #15141a;
   --gray-color: #909090;
   --link-color: #404040;
@@ -158,7 +158,7 @@ blockquote {
 
 .custom-btn:hover,
 .custom-btn:focus {
-  background: var(--dark-color);
+  background: var(--button);
   color: var(--white-color);
   border-color: transparent;
 }
