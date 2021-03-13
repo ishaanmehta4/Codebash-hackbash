@@ -46,10 +46,10 @@ async function hackerearthHandler(req, res) {
     },
     {
       EndTime: "Sun, 14 Mar 2021 18:00",
-      Name: "DotSlash",
+      Name: "Hackbash",
       Platform: "HACKEREARTH",
       challenge_type: "contest",
-      url: "https://dotslash.hackerearth.com/",
+      url: "https://hackbash.hackerearth.com/",
     },
   ];
   await fetchData("HACKEREARTH");

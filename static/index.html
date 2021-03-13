@@ -113,7 +113,7 @@
             <div class="hero-text">
               <h1 class="text-white" data-aos="fade-up">Welcome Coders</h1>
               <h2 class="text-white" data-aos="fade-up">
-                Wanna Keep Up with all the upcoming Coding Events
+                Wanna Keep Up with all the upcoming Coding Events?
               </h2>
 
               <a
@@ -380,38 +380,44 @@
           res1.forEach((event) => {
             document.getElementById(
               "codeforces_events"
-            ).innerHTML += `${event.Name} <br /> ${event.url} <br><br>`;
+              ).innerHTML += `<p style="color: #ffffff90">${event.Name}</p> <a href="${event.url}">${event.url}</a> <br><br>`;
           });
         })
         .catch((err) => {
           console.log("Hello", err);
         });
 
-      getEvents3("hackerearth")
-        .then((res3) => {
-          console.log(res3);
-          res3.forEach((event) => {
-            document.getElementById(
-              "hackerearth_events"
-            ).innerHTML += `${event.Name} <br /> ${event.url} <br><br>`;
-          });
-        })
-        .catch((err) => {
-          console.log("Hello", err);
-        });
+setTimeout(() => {
+  getEvents3("hackerearth")
+    .then((res3) => {
+      console.log(res3);
+      res3.forEach((event) => {
+        document.getElementById(
+          "hackerearth_events"
+          ).innerHTML += `<p style="color: #ffffff90">${event.Name}</p> <a href="${event.url}">${event.url}</a> <br><br>`;
+      });
+    })
+    .catch((err) => {
+      console.log("Hello", err);
+    });
+  
+}, 2000);
 
-      getEvents2("codechef")
-        .then((res2) => {
-          console.log(res2);
-          res2.forEach((event) => {
-            document.getElementById(
-              "codechef_events"
-            ).innerHTML += `${event.Name} <br /> ${event.url} <br><br>`;
-          });
-        })
-        .catch((err) => {
-          console.log("Hello", err);
-        });
+setTimeout(() => {
+  getEvents2("codechef")
+    .then((res2) => {
+      console.log(res2);
+      res2.forEach((event) => {
+        document.getElementById(
+          "codechef_events"
+          ).innerHTML += `<p style="color: #ffffff90">${event.Name}</p> <a href="${event.url}">${event.url}</a> <br><br>`;
+      });
+    })
+    .catch((err) => {
+      console.log("Hello", err);
+    });
+  
+}, 4000);
     </script>
   </body>
 </html>

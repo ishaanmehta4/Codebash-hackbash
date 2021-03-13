@@ -52,8 +52,13 @@
 }
 
 body {
+
   background: var(--white-color);
   font-family: var(--base-font-family);
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
 }
 
 /*---------------------------------------
