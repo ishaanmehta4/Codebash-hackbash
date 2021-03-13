@@ -28,7 +28,7 @@
   --white-color:          #ffffff;
   --dark-color:           #171819;
   --project-bg:           #f0f8ff;
-  --menu-bg:              #693c72;
+  --menu-bg:              #72523c;
   --navlinkCol:
 
   --title-color:          #15141a;
@@ -50,6 +50,7 @@
 
   --border-radius-large:  90px;
   --border-radius-small:  5px;
+  
 }
 
 body {
