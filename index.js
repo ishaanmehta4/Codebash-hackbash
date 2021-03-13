@@ -5,7 +5,7 @@ const app = express();
 const firebase = require("firebase/app");
 const firebaseConfig = require("./firebaseConfig");
 // if (!firebase.apps.length) {
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 // firebase.initializeApp({});
 // }else {
 // }
