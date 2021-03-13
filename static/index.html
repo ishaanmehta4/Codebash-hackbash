@@ -236,27 +236,27 @@
             </h2>
             <div class="card-deck">
                <div class="card">
-                 <img src="..." class="card-img-top" alt="...">
+                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                  <div class="card-body">
-                   <h5 class="card-title">Card title</h5>
-                   <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                   <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                   <h5 class="card-title">Codeforces events</h5>
+                   <p class="card-text" id="Codeforces_events"></p>
+                   <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                  </div>
                </div>
                <div class="card">
-                 <img src="..." class="card-img-top" alt="...">
+                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                  <div class="card-body">
-                   <h5 class="card-title">Card title</h5>
-                   <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                   <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                   <h5 class="card-title">Codechef events</h5>
+                   <p class="card-text" id="Codechef_events"></p>
+                   <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                  </div>
                </div>
                <div class="card">
-                 <img src="..." class="card-img-top" alt="...">
+                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                  <div class="card-body">
-                   <h5 class="card-title">Card title</h5>
-                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                   <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                   <h5 class="card-title">Hackerearth events</h5>
+                   <p class="card-text" id="Hackerearth_events"></p>
+                   <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                  </div>
                </div>
              </div>
@@ -335,5 +335,22 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
+
+    <script>
+      async function getEvents(platform) {
+        let res = await fetch('/events/' + platform)
+        res = await res.json()
+        console.log(platform, res)
+        return res
+      }
+
+      // getEvents('codeforces')
+      // getEvents('codechef')
+      getEvents('hackerearth').then(res => {
+        res.forEach(event => {
+          document.getElementById('Hackerearth_events').innerHTML += `${event.Name} <br /> ${event.url} <br><br>`
+        })
+      }).catch(err => {console.log(err)})
+    </script>
   </body>
 </html>

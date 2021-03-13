@@ -803,3 +803,11 @@ svg {
   stroke-dashoffset: 100;
   transition: 0.6s ease-out;
 }
+
+.card-deck .card-title {
+  color: #f1c111;
+}
+
+.card-body {
+  overflow: auto;
+}
