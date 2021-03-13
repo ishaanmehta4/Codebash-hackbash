@@ -58,14 +58,14 @@ app.get("/mg-api/webhook", webhookGetHandler);
 app.get("/dailynotification", sendNotifications);
 app.post("/dailynotification", sendNotifications);
 
-app.post("/rating/hackerearth", async (req, res) => {
-  res.send(await hackerearthRating(req.body.platform, req.body.username));
+app.get("/rating/hackerearth/:username", async (req, res) => {
+  res.send(await hackerearthRating('hackerearth', req.params.username));
 });
-app.post("/rating/codeforces", async (req, res) => {
-  res.send(await codeforcesRating(req.body.platform, req.body.username));
+app.get("/rating/codeforces/:username", async (req, res) => {
+  res.send(await codeforcesRating('codeforces', req.params.username));
 });
-app.post("/rating/codechef", async (req, res) => {
-  res.send(await codechefRating(req.body.platform, req.body.username));
+app.get("/rating/codechef/:username", async (req, res) => {
+  res.send(await codechefRating('codechef', req.params.username));
 });
 
 // --- LISTEN TO REQUESTS ---

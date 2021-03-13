@@ -1,4 +1,10 @@
 const axios = require('axios').default;
+const {
+    hackerearthRating,
+    codeforcesRating,
+    codechefRating,
+  } = require("./rating");
+  
 
 async function parseRatingQuery(msgText) {
     wordsArray = msgText.split(' ').filter(w => (w !== '' || w !== '.' || w !== ' ' || w !== ',' || w !== '?'));
@@ -20,7 +26,14 @@ async function parseRatingQuery(msgText) {
         result.platform = wordsArray[1]
         result.username = wordsArray[0]
     }
-    if(result.username && result.platform) return {...result, rating: 0, error: 0}
+
+    
+    if(result.username && result.platform) {
+        result = {...result, rating: 0, error: 0}
+        result = await getRating(result)
+        if(result.error == 0) return result
+        else return {error: result.error}
+    }
     else return {error: 'If you were trying to fetch someone\'s rating, then it looks like the username or platform is not valid. :/'}
 }
 
@@ -52,6 +65,32 @@ async function getResult(wordsArray) {
     })
 
 console.log(meaningwords)
+}
+
+async function getRating(userData) {
+
+    try {
+
+        let resp = {} 
+        let result = userData
+        if(userData.platform == 'codechef') {
+            resp = await codechefRating('codechef', userData.username)
+            if(resp.data && resp.data.status == 'Success') result.rating = resp.data.rating
+            else result.error = 'Username is invalid :('
+        }
+        if(userData.platform == 'hackerearth') {
+            resp = await hackerearthRating('hackerearth', userData.username)
+            if(resp.data && resp.data.name) result.rating = resp.data.rating
+            else result.error = 'Username is invalid :('
+        }
+        if(userData.platform == 'codeforces') {
+            resp = await codeforcesRating('codeforces', userData.username)
+            if(resp.data && resp.data.status == 'Success') result.rating = resp.data.rating
+            else result.error = 'Username is invalid :('
+        }
+    
+        return result
+    } catch(err) { console.log(err); return {...userData, error: err} }
 }
 
 module.exports = { parseRatingQuery }
